@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class oceanGenerator : MonoBehaviour
 {
-    Mesh mesh;
+    public Mesh mesh;
 
     Vector3[] vertices;
     int[] triangles;
 
-    public float y = 1.25f;
+    public float y = 1.250f;
     public int xSize = 254;
     public int zSize = 254;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         mesh = new Mesh();
 
@@ -22,6 +22,7 @@ public class oceanGenerator : MonoBehaviour
 
         CreateShape();
         UpdateMesh();
+        mesh.RecalculateBounds();
     }
 
     // Update is called once per frame
@@ -32,7 +33,7 @@ public class oceanGenerator : MonoBehaviour
         {
             for (int x = 0; x <= xSize; x++)
             {
-                vertices[i] = new Vector3(x, y, z);
+                vertices[i] = new Vector3(x, z, y);
                 i++;
             }
         }

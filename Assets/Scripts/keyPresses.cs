@@ -5,8 +5,14 @@ using UnityEngine;
 public class keyPresses : MonoBehaviour
 {
     public boatMovement bm;
-
+    public angleScript aS;
+    public DistanceCalculations ds;
+    public offTheMap otm;
     // Update is called once per frame
+    private void Awake()
+    {
+        Physics.gravity = new Vector3(0.0f, 0.0f, 9.8f);
+    }
     void Update()
     {
         
@@ -28,5 +34,12 @@ public class keyPresses : MonoBehaviour
         {
             bm.moveRight();
         }
+        //float angle = aS.angleBetweenObjects(bm.boat.transform.position, ds.getCurrentDock());
+        //Debug.Log(angle.ToString());
+        if (otm.istheobjectofftheMap(bm.boaty)) 
+        {
+            Debug.Log("Reset me plese");
+        }
+        bool onLand = bm.boatAshore(); //Can use the onland to rest it you want
     }
 }

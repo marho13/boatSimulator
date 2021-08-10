@@ -146,8 +146,8 @@
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@10.5.0\Editor\TrackballUIDrawer.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@10.5.0\Editor\2D\ShapeEditor\EditablePath\Snapping.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@10.5.0\Editor\AssetPostProcessors\ThreeDSMaterialDescriptionPostprocessor.cs" />
-    <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@10.5.0\Editor\ShaderGraph\Targets\UniversalSpriteLitSubTarget.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@10.5.0\Editor\2D\ShapeEditor\Selection\PointRectSelector.cs" />
+    <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@10.5.0\Editor\ShaderGraph\Targets\UniversalSpriteLitSubTarget.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@10.5.0\Editor\AssetPostProcessors\MaterialPostprocessor.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@10.5.0\Editor\Shadow\ShadowCascadeSplitGUI.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@10.5.0\Editor\2D\ShapeEditor\EditablePath\EditablePath.cs" />

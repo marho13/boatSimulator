@@ -5,8 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter))]
 public class generatingIslands : MonoBehaviour
 {
-    Mesh mesh;
-
+    public Mesh mesh;
+    public MeshCollider mc;
+    GameObject meshy;
     Vector3[] vertices;
     int[] triangles;
     Color[] colors;
@@ -20,18 +21,18 @@ public class generatingIslands : MonoBehaviour
     public float minHeight;
     public float maxHeight;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Random.InitState(42);
 
-        mesh = new Mesh();
+        //mesh = new Mesh();
         
         GetComponent<MeshFilter>().mesh = mesh;
         
 
         CreateShape();
         UpdateMesh();
-
+        mesh.RecalculateBounds();
     }
 
     // Update is called once per frame
@@ -43,10 +44,10 @@ public class generatingIslands : MonoBehaviour
         {
             for (int x = 0; x <= xSize; x++)
             {
-                float y = Mathf.PerlinNoise(x*.025f, z*.025f) * 2f;
-                if (y > 1.25f & y < 1.45) 
+                float y = Mathf.PerlinNoise(x*.025f, z*.025f) * -4f;
+                if (y < -1.25f & y > -1.45) 
                 {
-                    waterEdge[w] = new Vector3(x, y, z);
+                    waterEdge[w] = new Vector3(x, z, y);
                     w++;
                 }
 
@@ -56,7 +57,7 @@ public class generatingIslands : MonoBehaviour
                 if (y > maxHeight)
                     maxHeight = y;
         
-                vertices[i] = new Vector3(x, y, z);
+                vertices[i] = new Vector3(x, z, y);
                 i++;
             }
         }

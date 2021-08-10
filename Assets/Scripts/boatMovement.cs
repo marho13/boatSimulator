@@ -4,52 +4,55 @@ using UnityEngine;
 
 public class boatMovement : MonoBehaviour
 {
+    public GameObject boaty;
     public Rigidbody boat;
-    public Vector3 rightForce;
-    public Vector3 leftForce;
-    public Vector3 upForce;
-    public Vector3 downForce;
-    public Vector3 offSet;
+    public boatAshore ba;
+    [SerializeField] GameObject backBoat;
+    [SerializeField] GameObject backLeft;
+    [SerializeField] GameObject backRight;
+    [SerializeField] GameObject frontBoat;
+    [SerializeField] GameObject frontLeft;
+    [SerializeField] GameObject frontRight;
 
-    public float radius = -0.5f;
-    public float maxForwardSpeed;
-    public float maxSideSpeed;
-    private void Awake()
+
+    public bool boatAshore() 
     {
-        rightForce = new Vector3(-2.0f, 0.0f, 0.0f);
-        leftForce = new Vector3(2.0f, 0.0f, 0.0f);
-        upForce = new Vector3(0.0f, 0.0f, 10.0f);
-        downForce = new Vector3(0.0f, 0.0f, -10.0f);
-        offSet = new Vector3(0.0f, 0.0f, 0.0f);
-        boat.constraints = RigidbodyConstraints.FreezeRotationX;
-    }
+        bool backy = (ba.boatOnLand(backBoat.transform.position, 0.05f, new Vector3(0.0f, 0.0f, 1.0f))) ;
+        bool backleft = (ba.boatOnLand(backLeft.transform.position, 0.05f, new Vector3(0.0f, 0.0f, 1.0f))) ;
+        bool backright = (ba.boatOnLand(backRight.transform.position, 0.05f, new Vector3(0.0f, 0.0f, 1.0f))) ;
+        bool fronty = (ba.boatOnLand(frontBoat.transform.position, 0.05f, new Vector3(0.0f, 0.0f, 1.0f))) ;
+        bool frontleft = (ba.boatOnLand(frontLeft.transform.position, 0.05f, new Vector3(0.0f, 0.0f, 1.0f))) ;
+        bool frontright = (ba.boatOnLand(frontRight.transform.position, 0.05f, new Vector3(0.0f, 0.0f, 1.0f))) ;
+        if (backy || backleft || backright || fronty || frontleft || frontright)
+        {
+            Debug.Log("Found land");
+            return true;
 
+        }
+        return false;
+    }
     public void moveRight()
     {
-        //offSet = rotationToOffset();
-        Vector3 right = boat.transform.position - offSet;
-        boat.AddForceAtPosition(rightForce, right);
+        Vector3 offSet = rotationToOffset(-1.0f, "sideways");
+        boat.AddForceAtPosition(offSet, backBoat.transform.position);
     }
 
     public void moveLeft()
     {
-        //offSet = rotationToOffset();
-        Vector3 left = boat.transform.position - offSet;
-        boat.AddForceAtPosition(leftForce, left);
+        Vector3 offSet = rotationToOffset(1.0f, "sideways");
+        boat.AddForceAtPosition(offSet, backBoat.transform.position);
     }
 
     public void moveForward()
     {
-        //offSet = rotationToOffset();
-        Vector3 forward = boat.transform.position - offSet;
-        boat.AddForceAtPosition(upForce, forward);
+        Vector3 offSet = rotationToOffset(1.0f, "straight");
+        boat.AddForceAtPosition(offSet, backBoat.transform.position);
     }
 
     public void moveDown()
     {
-        //offSet = rotationToOffset();
-        Vector3 down = boat.transform.position - offSet;
-        boat.AddForceAtPosition(downForce, down);
+        Vector3 offSet = rotationToOffset(-1.0f, "straight");
+        boat.AddForceAtPosition(offSet, backBoat.transform.position);
     }
 
     public void step(float steering, float acceleration, float bucket) {
@@ -59,19 +62,29 @@ public class boatMovement : MonoBehaviour
         else {
             bucket = -1.0f;
         }
-        Vector3 forcy = new Vector3(steering * maxSideSpeed, 0.0f, acceleration * maxForwardSpeed * bucket);
-        //offSet = rotationToOffset();
-        boat.AddForceAtPosition(forcy, boat.transform.position - offSet);
+        Vector3 forward = rotationToOffset(bucket*acceleration, "straight");
+        Vector3 side = rotationToOffset(steering, "sideways");
+        Vector3 output = forward + side;
+        boat.AddForceAtPosition(output, backBoat.transform.position);
     }
 
-    public Vector3 rotationToOffset() 
+    public Vector3 rotationToOffset(float multiplier, string straight) 
     {
-        float angle = (float)(boat.transform.rotation.y*Mathf.PI/180.0);
-        float x = (float)(Mathf.Cos(angle) * radius);
-        float y = (float)(Mathf.Sin(angle) * radius);
+        float angle = Mathf.Deg2Rad*backBoat.transform.eulerAngles.z;
+        if (straight == "straight")
+        {
+            float x = (float)(Mathf.Cos(angle) * 10.0f) * multiplier;
+            float y = (float)(Mathf.Sin(angle) * 10.0f) * multiplier;
 
-        Debug.Log((x + y) == radius);
-        
-        return new Vector3(y, 0.0f, x);
+            return new Vector3(-y, x, 0);
+        }
+
+        else 
+        {
+            float x = (float)(Mathf.Cos(angle) * 0.50f) * multiplier;
+            float y = (float)(Mathf.Sin(angle) * 0.50f) * multiplier;
+
+            return new Vector3(x, y, 0);
+        }
     }
 }
