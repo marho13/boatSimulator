@@ -5,7 +5,7 @@ using UnityEngine;
 public class DistanceCalculations : MonoBehaviour
 {
     public GameObject checkpointList; ///The gameobject will all of the docks
-    public int currentCheck;
+    public int currentCheck = 0;
     public List<GameObject> checkpoints;
     public void Start()
     {

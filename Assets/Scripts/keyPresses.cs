@@ -8,6 +8,7 @@ public class keyPresses : MonoBehaviour
     public angleScript aS;
     public DistanceCalculations ds;
     public offTheMap otm;
+    public TypeofDocking td;
     // Update is called once per frame
     private void Awake()
     {
@@ -34,12 +35,26 @@ public class keyPresses : MonoBehaviour
         {
             bm.moveRight();
         }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            bm.moveDirectlyLeft();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            bm.moveDirectlyRight();
+        }
+
+        ds.taskComplete(bm.boaty.transform.position);
         //float angle = aS.angleBetweenObjects(bm.boat.transform.position, ds.getCurrentDock());
         //Debug.Log(angle.ToString());
         if (otm.istheobjectofftheMap(bm.boaty)) 
         {
             Debug.Log("Reset me plese");
         }
-        bool onLand = bm.boatAshore(); //Can use the onland to rest it you want
+        bool onLand = bm.boatAshore(); //Can use the onland to reset it you want
+        bool towards = td.travellingTowardsDock(bm.boaty.transform.position, ds.getCurrentDock(), bm.lastAction);
+        Debug.Log(towards);
     }
 }

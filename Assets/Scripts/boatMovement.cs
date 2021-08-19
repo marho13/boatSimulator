@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class boatMovement : MonoBehaviour
@@ -7,6 +5,7 @@ public class boatMovement : MonoBehaviour
     public GameObject boaty;
     public Rigidbody boat;
     public boatAshore ba;
+    public Vector3 lastAction;
     [SerializeField] GameObject backBoat;
     [SerializeField] GameObject backLeft;
     [SerializeField] GameObject backRight;
@@ -35,24 +34,42 @@ public class boatMovement : MonoBehaviour
     {
         Vector3 offSet = rotationToOffset(-1.0f, "sideways");
         boat.AddForceAtPosition(offSet, backBoat.transform.position);
+        lastAction = offSet;
     }
 
     public void moveLeft()
     {
         Vector3 offSet = rotationToOffset(1.0f, "sideways");
         boat.AddForceAtPosition(offSet, backBoat.transform.position);
+        lastAction = offSet;
     }
 
     public void moveForward()
     {
         Vector3 offSet = rotationToOffset(1.0f, "straight");
         boat.AddForceAtPosition(offSet, backBoat.transform.position);
+        lastAction = offSet;
     }
 
     public void moveDown()
     {
         Vector3 offSet = rotationToOffset(-1.0f, "straight");
         boat.AddForceAtPosition(offSet, backBoat.transform.position);
+        lastAction = offSet;
+    }
+
+    public void moveDirectlyLeft()
+    {
+        Vector3 left = new Vector3(-3.0f, 0.0f, 0.0f);
+        boat.AddForceAtPosition(left, boat.worldCenterOfMass);
+        lastAction = left;
+    }
+
+    public void moveDirectlyRight()
+    {
+        Vector3 right = new Vector3(3.0f, 0.0f, 0.0f);
+        boat.AddForceAtPosition(right, boat.worldCenterOfMass);
+        lastAction = right;
     }
 
     public void step(float steering, float acceleration, float bucket) {
@@ -66,6 +83,7 @@ public class boatMovement : MonoBehaviour
         Vector3 side = rotationToOffset(steering, "sideways");
         Vector3 output = forward + side;
         boat.AddForceAtPosition(output, backBoat.transform.position);
+        lastAction = output;
     }
 
     public Vector3 rotationToOffset(float multiplier, string straight) 
