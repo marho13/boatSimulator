@@ -37,7 +37,6 @@ public class TypeofDocking : MonoBehaviour
         //Find the closest cardinal direction
         int boaty = closestCardinal(softmaxed);
         int forcy = closestCardinal(forcemaxed);
-        Debug.Log(boaty.ToString() + "  -   " + forcy.ToString());
 
         //If they have the same cardinal direction which is closest, they are moving towards each other
         if (boaty == forcy)
@@ -48,7 +47,6 @@ public class TypeofDocking : MonoBehaviour
         else
         {
             float angleDifference = angleCalculation(y, x) - angleCalculation(forces.y, forces.x);
-            Debug.Log(angleDifference);
             if ((boaty == 0 & forcy == 1) || (boaty==0 & forcy == 3))
             {
                 if ((angleDifference > -45.0) & (angleDifference < 45.0))
@@ -81,7 +79,6 @@ public class TypeofDocking : MonoBehaviour
             }
             return false;
         }
-        return false;
     }
 
     public float angleCalculation(float y, float x)
@@ -108,24 +105,20 @@ public class TypeofDocking : MonoBehaviour
 
         if ((Zero < Ninety) & (Zero < Eighty) & (Zero < Seventy)) 
         {
-            Debug.Log("0 " + Zero.ToString() + ": " + Ninety.ToString() + "," + Eighty + "," + Seventy);
             return 0;
         }
         if (Ninety < Eighty & Ninety < Seventy)
         {
-            Debug.Log("1 " + Ninety.ToString() + ": " + Zero.ToString() + "," + Eighty + "," + Seventy);
             return 1;
         }
         if (Eighty < Seventy)
         {
-            Debug.Log("2 " + Eighty.ToString() + ": " + Zero.ToString() + "," + Ninety.ToString() + "," + Seventy);
             return 2;
         }
-        Debug.Log("3 " + Seventy.ToString() + ": " + Zero.ToString() + "," + Ninety.ToString() + "," + Eighty);
         return 3;
     }
 
-    public Vector2 spawnBoat(Vector3 boat, GameObject dock)
+    public Vector2 spawnBoat(GameObject boat, GameObject dock)
     {
         //Take the angle of the dock, add 180 to it (it is rotated that way)
         float angle = dock.transform.eulerAngles.z;
@@ -145,7 +138,8 @@ public class TypeofDocking : MonoBehaviour
         float x = positionXY.x * length;
         float y = positionXY.y * length;
         //Return the X and Y positions for the boat to spawn in
-        return new Vector2(x, y);
+        boat.transform.position = new Vector3(x + dock.transform.position.x, y + dock.transform.position.y, 0.0f);
+        return boat.transform.position;
     }
 
     public Vector2 positions(float angle)

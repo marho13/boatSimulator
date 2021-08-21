@@ -3,26 +3,25 @@ using System.Collections.Generic;
 using System.Collections;
 using SocketIO;
 using System;
+using System.Threading;
 using System.Security.AccessControl;
 public class commandCentre : MonoBehaviour
 {
+    public DistanceCalculations ds;
+    public offTheMap otm;
+    public TypeofDocking td;
     public Camera FrontFacingCamera;
     public boatMovement boaty;
     private SocketIOComponent _socket;
-    public bool frWheel = false;
-    public bool flWheel = false;
-    public bool brWheel = false;
-    public bool blWheel = false;
-    public bool divider = false;
-    public bool Collide = false;
     public bool onRoad = true;
+    public bool taskDone = false;
     public bool resetEnv = false;
     public bool taskComplete = false;
+    public int typeNumber = 0;
     public int straightCheckpoint = 0;
     public int nonStraightCheckpoint = 0;
     public float reward = 0.0f;
-    public int offRoadInt = 0;
-    public int taskCompletion = 0;
+    public Vector3 resetPosition = new Vector3(111.38f, 97.5f, 0.0f);
 
     // Use this for initialization
     void Start()
@@ -30,48 +29,68 @@ public class commandCentre : MonoBehaviour
         _socket = GameObject.Find("SocketIO").GetComponent<SocketIOComponent>();
         _socket.On("open", OnOpen);
         _socket.On("steer", OnSteer);
-        _socket.On("manual", onManual);
+        //_socket.On("manual", onManual);
         _socket.On("ready", OnReady);
+        taskZero();
     }
 
-    //void FixedUpdate()
-    //{
-    //    checkpoint.checkpointComplete();
-    //}
-
+    //These first functions (On*), perform tasks when called such as connect unity and our actor, steer and more
     void OnOpen(SocketIOEvent obj)
     {
         Debug.Log("Connection Open");
         EmitTelemetry(obj);
     }
 
-    // 
-    void onManual(SocketIOEvent obj)
-    {
-        EmitTelemetry(obj);
-    }
-
     void OnSteer(SocketIOEvent obj)
     {
         JSONObject jsonObject = obj.data;
-        /*taskComplete = checkpoint.taskComplete();
+        Debug.Log(jsonObject);
+        taskComplete = ds.taskComplete(boaty.boaty.transform.position);
+
+        float steering = float.Parse(jsonObject.GetField("steering_angle").str);
+        float acceleration = float.Parse(jsonObject.GetField("throttle").str);
+        float bucket = float.Parse(jsonObject.GetField("bucket").str);
+
+        Vector3 output = steeringTranslation(steering, acceleration, bucket);
+
+        taskOne(output, steering, acceleration); //Checking if the boat is moving towards the goal or not
+        taskTwo(); //Check if the boat is off the road or not
+
+        Thread.Sleep(100);//Sleep for 0.1 seconds so that the reward becomes good from the distance calculated
+
         if (taskComplete) 
         {
-            Debug.Log("Resetting");
-                taskCompletion++;
-            if (taskCompletion > 30)
-            {
-                taskCompletion = 0;
-                checkpoint.increaseTask();
-            }
+            taskZero(); //If the boat has reached the docks reset it
+            taskCompletion(); //Completed the task, and so get 1000 reward
             resetEnv = true;
         }
-        */
-        ///Import your thang
+        stillReward(); //General still reward to stop the boat from performing no actions
         EmitTelemetry(obj);
+        if (resetEnv)
+        {
+            episodeReward();
+        }
     }
 
-    void EmitTelemetry(SocketIOEvent obj)
+    //Translates the action for the user
+    Vector3 steeringTranslation(float steering, float acceleration, float bucket)
+    {
+        if (bucket < 0.5)
+        {
+            bucket = 1.0f;
+        }
+        else
+        {
+            bucket = -1.0f;
+        }
+        Vector3 forward = boaty.rotationToOffset(bucket * acceleration, "straight");
+        Vector3 side = boaty.rotationToOffset(steering, "sideways");
+        Vector3 output = forward + side;
+
+        return output;
+    }
+
+    void EmitTelemetry(SocketIOEvent obj) //Sends the information back to the agent
     {
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
@@ -96,8 +115,6 @@ public class commandCentre : MonoBehaviour
                 data["resetEnv"] = resetEnv.ToString();
                 _socket.Emit("telemetry", new JSONObject(data));
 
-
-
                 if (resetEnv)
                 {
                     Debug.Log("reset");
@@ -105,7 +122,7 @@ public class commandCentre : MonoBehaviour
                     reward = 0.0f;
                     resetEnv = false;
                 }
-
+                reward = 0.0f;
             }
         });
     }
@@ -115,28 +132,20 @@ public class commandCentre : MonoBehaviour
         JSONObject jsonObject = obj.data;
         resetEnv = false;
         resetCheckpoints();
-        offRoadInt = 0;
         Debug.Log("Speeding up");
-    }
-
-    public void rewardCheckpoint()
-    {
-        nonStraightCheckpoint++;
-        reward += 7.0f;
-    }
-
-    public void rewardStraight()
-    {
-        straightCheckpoint++;
-        reward += 2.0f;
     }
 
     void resetCheckpoints()
     {
-        straightCheckpoint = 0;
-        nonStraightCheckpoint = 0;
+        //Need to do anything?
     }
 
+
+    //These next functions are the reward function
+    void taskCompletion()
+    {
+        reward += 1000.0f;
+    }
     void stillReward()
     {
         reward -= 0.001f;
@@ -149,8 +158,54 @@ public class commandCentre : MonoBehaviour
 
     void episodeReward()
     {
-        reward -= 0.5f;
+        reward -= 1.0f;
     }
 
-    
+    //Tasks 0-2 using array notation
+    void taskZero()
+    {
+        if (typeNumber == 0)
+        {
+            td.spawnBoat(boaty.boaty, ds.getDockObject());
+            resetPosition = boaty.boaty.transform.position;
+        }
+    }
+
+    void taskOne(Vector3 output, float steering, float acceleration)
+    {
+        if (typeNumber == 1)
+        {
+            bool towards = td.travellingTowardsDock(boaty.boaty.transform.position, ds.getCurrentDock(), output);
+            if (towards)
+            {
+                boaty.step(output);
+            }
+            else
+            {
+                if ((Mathf.Abs(steering) > 0.5) & (acceleration < 0.25f))
+                {
+                    boaty.step(output);
+                }
+            }
+        }
+
+        else
+        {
+            boaty.step(output);
+        }
+    }
+
+    void taskTwo()
+    {
+        if (boaty.boatAshore())
+        {
+            offRoad();
+        }
+        reward += ds.calcDistances(boaty.boat.transform.position);
+        if (otm.istheobjectofftheMap(boaty.boaty))
+        {
+            boaty.boaty.transform.position = resetPosition;
+        }
+        //Whatever we wish to do on task 2
+    }
 }

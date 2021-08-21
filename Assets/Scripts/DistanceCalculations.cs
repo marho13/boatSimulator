@@ -21,10 +21,18 @@ public class DistanceCalculations : MonoBehaviour
         return checkpoints[currentCheck].transform.position;
     }
 
+    public GameObject getDockObject() 
+    {
+        return checkpoints[currentCheck];
+    }
+
     public bool taskComplete(Vector3 boat) 
     {
-        if (Vector3.Distance(boat, checkpoints[currentCheck].transform.position) < 1.0f)
+        float distance = Vector3.Distance(boat, checkpoints[currentCheck].transform.position);
+        Debug.Log(distance);
+        if (distance < 1.0f)
         {
+            Debug.Log("Got to the dock");
             if (currentCheck == checkpoints.Count) 
             {
                 currentCheck = 0;

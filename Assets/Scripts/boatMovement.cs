@@ -30,6 +30,11 @@ public class boatMovement : MonoBehaviour
         }
         return false;
     }
+
+    public Vector3 getFrontBoat()
+    {
+        return frontBoat.transform.position;
+    }
     public void moveRight()
     {
         Vector3 offSet = rotationToOffset(-1.0f, "sideways");
@@ -60,28 +65,19 @@ public class boatMovement : MonoBehaviour
 
     public void moveDirectlyLeft()
     {
-        Vector3 left = new Vector3(-3.0f, 0.0f, 0.0f);
-        boat.AddForceAtPosition(left, boat.worldCenterOfMass);
-        lastAction = left;
+        Vector3 offSet = rotationToOffset(-1.0f, "sideways") * 6.0f;
+        boat.AddForceAtPosition(offSet, boat.worldCenterOfMass);
+        lastAction = offSet;
     }
 
     public void moveDirectlyRight()
     {
-        Vector3 right = new Vector3(3.0f, 0.0f, 0.0f);
-        boat.AddForceAtPosition(right, boat.worldCenterOfMass);
-        lastAction = right;
+        Vector3 offSet = rotationToOffset(1.0f, "sideways")*6.0f;
+        boat.AddForceAtPosition(offSet, boat.worldCenterOfMass);
+        lastAction = offSet;
     }
 
-    public void step(float steering, float acceleration, float bucket) {
-        if (bucket < 0.5) {
-            bucket = 1.0f;
-        }
-        else {
-            bucket = -1.0f;
-        }
-        Vector3 forward = rotationToOffset(bucket*acceleration, "straight");
-        Vector3 side = rotationToOffset(steering, "sideways");
-        Vector3 output = forward + side;
+    public void step(Vector3 output) {
         boat.AddForceAtPosition(output, backBoat.transform.position);
         lastAction = output;
     }
