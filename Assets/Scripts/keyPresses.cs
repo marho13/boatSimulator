@@ -17,58 +17,52 @@ public class keyPresses : MonoBehaviour
     {
         Physics.gravity = new Vector3(0.0f, 0.0f, 9.8f);
     }
-    void Update()
-    {
+    //void FixedUpdate()
+    //{
         
-        if (Input.GetKeyDown(KeyCode.W)) {
-            bm.moveForward();
-        }
+        //if (Input.GetKeyDown(KeyCode.W)) {
+        //    bm.moveForward();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            bm.moveLeft();
-        }
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    bm.moveLeft();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            bm.moveDown();
-        }
+        //if (Input.GetKeyDown(KeyCode.S))
+        //{
+         //   bm.moveDown();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            bm.moveRight();
-        }
+        //if (Input.GetKeyDown(KeyCode.D))
+        //{
+         //   bm.moveRight();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            bm.moveDirectlyLeft();
-        }
+        //if (Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    bm.moveDirectlyLeft();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            bm.moveDirectlyRight();
-        }
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    bm.moveDirectlyRight();
+        //}
+        //Vector2 distance = setArrows();
+        //bm.printInfo(distance);
+        //ds.taskComplete(bm.boaty.transform.position);
+    //}
 
-        setArrows();
-
-        Debug.Log(ds.taskComplete(bm.getFrontBoat()));
-        //float angle = aS.angleBetweenObjects(bm.boat.transform.position, ds.getCurrentDock());
-        //Debug.Log(angle.ToString());
-        if (otm.istheobjectofftheMap(bm.boaty)) 
-        {
-            Debug.Log("Reset me plese");
-        }
-    }
-
-    void setArrows()
+    Vector2 setArrows()
     {
         lw.changePointOne(bm.boaty.transform.position + new Vector3(0.0f, 0.0f, -0.1f));
 
         Vector3 currDock = ds.getCurrentDock();
-        softMax = new Vector2(bm.boaty.transform.position.x - currDock.x, bm.boaty.transform.position.y - currDock.y);
-        softMax = calcSoftMax(softMax.x, softMax.y);
+        Vector2 pos1 = new Vector2(bm.boaty.transform.position.x - currDock.x, bm.boaty.transform.position.y - currDock.y);
+        softMax = calcSoftMax(pos1.x, pos1.y);
         pos2 = new Vector3(bm.boaty.transform.position.x - softMax.x, bm.boaty.transform.position.y - softMax.y, bm.boaty.transform.position.z - 0.1f);
         lw.changePointTwo(pos2);
+        return pos1;
     }
 
     public Vector2 calcSoftMax(float x, float y)

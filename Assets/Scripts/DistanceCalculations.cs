@@ -30,7 +30,7 @@ public class DistanceCalculations : MonoBehaviour
     {
         float distance = Vector3.Distance(boat, checkpoints[currentCheck].transform.position);
         Debug.Log(distance);
-        if (distance < 1.0f)
+        if (distance < 2.0f)
         {
             Debug.Log("Got to the dock");
             if (currentCheck == checkpoints.Count) 

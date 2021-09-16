@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class boatMovement : MonoBehaviour
 {
@@ -13,7 +14,26 @@ public class boatMovement : MonoBehaviour
     [SerializeField] GameObject frontLeft;
     [SerializeField] GameObject frontRight;
 
-
+    public List<float> printInfo(Vector2 distance)
+    {
+        List<float> outputList = new List<float>();
+        //Debug.Log("Info:                                             ");
+        //Debug.Log("Distance from target is: " + distance.ToString());
+        //Debug.Log("Yaw is: " + boat.transform.eulerAngles.z);
+        //Debug.Log("Velocity is :" + boat.velocity.ToString());
+        //Debug.Log("Yaw rate Velocity is :" + boat.angularVelocity.z.ToString());
+        float surge = Random.RandomRange(-0.5f, 0.5f);
+        float sway = Random.RandomRange(-0.5f, 0.5f);
+        //Debug.Log("Surge is: " + surge.ToString()); //We could have surge but due to the simulation not taking into account waves this was not done
+        //Debug.Log("Sway is: " + sway.ToString());
+        outputList.Add(distance.x);
+        outputList.Add(distance.y);
+        outputList.Add(boat.transform.eulerAngles.z);
+        outputList.Add(boat.angularVelocity.z);
+        outputList.Add(surge);
+        outputList.Add(sway);
+        return outputList;
+    }
     public bool boatAshore() 
     {
         bool backy = (ba.boatOnLand(backBoat.transform.position, 0.05f, new Vector3(0.0f, 0.0f, 1.0f))) ;
@@ -95,8 +115,8 @@ public class boatMovement : MonoBehaviour
 
         else 
         {
-            float x = (float)(Mathf.Cos(angle) * 0.50f) * multiplier;
-            float y = (float)(Mathf.Sin(angle) * 0.50f) * multiplier;
+            float x = (float)(Mathf.Cos(angle) * 2.50f) * multiplier;
+            float y = (float)(Mathf.Sin(angle) * 2.50f) * multiplier;
 
             return new Vector3(x, y, 0);
         }
