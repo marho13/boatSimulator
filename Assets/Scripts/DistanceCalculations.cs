@@ -33,7 +33,7 @@ public class DistanceCalculations : MonoBehaviour
         if (distance < 2.0f)
         {
             Debug.Log("Got to the dock");
-            if (currentCheck == checkpoints.Count) 
+            if (currentCheck == checkpoints.Count-1) 
             {
                 currentCheck = 0;
                 return true;

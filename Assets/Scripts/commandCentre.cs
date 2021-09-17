@@ -49,7 +49,7 @@ public class commandCentre : MonoBehaviour
     void OnSteer(SocketIOEvent obj)
     {
         JSONObject jsonObject = obj.data;
-
+        reward = 0.0f;
         taskComplete = ds.taskComplete(boaty.boaty.transform.position);
 
         float steering = float.Parse(jsonObject.GetField("steering_angle").str);
@@ -104,37 +104,34 @@ public class commandCentre : MonoBehaviour
 
     void EmitTelemetry(SocketIOEvent obj) //Sends the information back to the agent
     {
-    Debug.Log("Attempting to Send...");
-    // send only if it's not being manually driven
-    if ((Input.GetKey(KeyCode.W)) || (Input.GetKey(KeyCode.S)))
-    {
-        _socket.Emit("telemetry", new JSONObject());
-    }
-    else
-    {
-        Debug.Log("Stuff");
-        Dictionary<string, string> data = new Dictionary<string, string>();
-        data["image"] = Convert.ToBase64String(CameraHelper.CaptureFrame(FrontFacingCamera));
-            data["state"] = string.Join(",", state);
-        Debug.Log(data["state"]);
-        data["reward"] = reward.ToString();
-        data["checkpointStraight"] = straightCheckpoint.ToString();
-        data["checkpointNonStraight"] = nonStraightCheckpoint.ToString();
-        data["onRoad"] = onRoad.ToString();
-        data["resetEnv"] = resetEnv.ToString();
-        Debug.Log("Telemetry");
-        _socket.Emit("telemetry", new JSONObject(data));
-
-        if (resetEnv)
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            Debug.Log("reset");
-            resetCheckpoints();
+            Debug.Log("Attempting to Send...");
+            // send only if it's not being manually driven
+            Dictionary<string, string> data = new Dictionary<string, string>();
+            data["image"] = Convert.ToBase64String(CameraHelper.CaptureFrame(FrontFacingCamera));
+            //data["state"] = string.Join(",", state);
+
+    
+            data["reward"] = reward.ToString();
+            data["checkpointStraight"] = straightCheckpoint.ToString();
+            data["checkpointNonStraight"] = nonStraightCheckpoint.ToString();
+            data["onRoad"] = onRoad.ToString();
+            data["resetEnv"] = resetEnv.ToString();
+            Debug.Log("Telemetry");
+            _socket.Emit("telemetry", new JSONObject(data));
+
+            if (resetEnv)
+            {
+                resetEnv = false;
+                Debug.Log("reset");
+                reward = 0.0f;
+                resetEnv = false;
+            }
             reward = 0.0f;
-            resetEnv = false;
-        }
-        reward = 0.0f;
-        }
+        });
     }
+    
 
     void OnReady(SocketIOEvent obj)
     {
@@ -146,7 +143,7 @@ public class commandCentre : MonoBehaviour
 
     void resetCheckpoints()
     {
-        //Need to do anything?
+        resetEnv = false;//Need to do anything?
     }
 
 
@@ -178,8 +175,9 @@ public class commandCentre : MonoBehaviour
             td.spawnBoat(boaty.boaty, ds.getDockObject());
             resetPosition = boaty.boaty.transform.position;
             resetEnv = true;
+            taskComplete = false;
         }
-        if (typeNumber == 0)
+        else if (typeNumber == 0 && !resetEnv)
         {
             if (td.tooFarFromDock(boaty.boaty.transform.position, ds.getCurrentDock()))
             {

@@ -16,3 +16,5 @@ As the simulator is made in Unity, it includes graphics which take up a lot of s
 For the controls related to the simulation as well as the one related to the FFI simulator, you can go to: https://github.com/marho13/Boat-steering
 Both this repository and that one are private repositories if you want to give someone else access tell me and i can add them.
 Though this way no one that is not supposed to know about these systems will be able to access them.
+
+To change the port, go into the assets folder, then the socketio folder, then the websocketsharp, in there you will find a script called WebSocket.cs... This is where you change the port, in case you want to use train multiple agents

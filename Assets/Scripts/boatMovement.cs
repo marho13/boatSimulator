@@ -22,8 +22,8 @@ public class boatMovement : MonoBehaviour
         //Debug.Log("Yaw is: " + boat.transform.eulerAngles.z);
         //Debug.Log("Velocity is :" + boat.velocity.ToString());
         //Debug.Log("Yaw rate Velocity is :" + boat.angularVelocity.z.ToString());
-        float surge = Random.RandomRange(-0.5f, 0.5f);
-        float sway = Random.RandomRange(-0.5f, 0.5f);
+        float surge = Random.Range(-0.5f, 0.5f);
+        float sway = Random.Range(-0.5f, 0.5f);
         //Debug.Log("Surge is: " + surge.ToString()); //We could have surge but due to the simulation not taking into account waves this was not done
         //Debug.Log("Sway is: " + sway.ToString());
         outputList.Add(distance.x);

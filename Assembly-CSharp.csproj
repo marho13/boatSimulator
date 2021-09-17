@@ -92,7 +92,7 @@
     <Compile Include="Assets\SocketIO\WebsocketSharp\Net\HttpVersion.cs" />
     <Compile Include="Assets\SocketIO\WebsocketSharp\Net\HttpListener.cs" />
     <Compile Include="Assets\SocketIO\WebsocketSharp\HandshakeBase.cs" />
-    <Compile Include="Assets\Scripts\UnityMainThreadDispatcher.cs" />
+    <Compile Include="Assets\Scripts\UnityThreading\UnityMainThreadDispatcher.cs" />
     <Compile Include="Assets\SocketIO\Scripts\SocketIO\SocketIOException.cs" />
     <Compile Include="Assets\SocketIO\WebsocketSharp\Net\ListenerAsyncResult.cs" />
     <Compile Include="Assets\SocketIO\WebsocketSharp\Net\AuthenticationChallenge.cs" />
@@ -139,6 +139,7 @@
     <Compile Include="Assets\SocketIO\WebsocketSharp\Net\LineState.cs" />
     <Compile Include="Assets\Scripts\DistanceCalculations.cs" />
     <Compile Include="Assets\SocketIO\WebsocketSharp\HandshakeResponse.cs" />
+    <Compile Include="Assets\Scripts\TypeofDocking.cs" />
     <Compile Include="Assets\SocketIO\Scripts\SocketIO\Decoder.cs" />
     <Compile Include="Assets\SocketIO\WebsocketSharp\Net\HttpStatusCode.cs" />
     <Compile Include="Assets\SocketIO\WebsocketSharp\Net\HttpUtility.cs" />
@@ -148,7 +149,6 @@
     <Compile Include="Assets\SocketIO\WebsocketSharp\Net\Chunk.cs" />
     <Compile Include="Assets\SocketIO\WebsocketSharp\Net\InputChunkState.cs" />
     <Compile Include="Assets\SocketIO\WebsocketSharp\LogLevel.cs" />
-    <Compile Include="Assets\Scripts\TypeofDocking.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\SocketIO\JSONObject\readme.txt" />

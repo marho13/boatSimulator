@@ -4,6 +4,7 @@ ScriptsOnlyBuild:
     - DistanceCalculations
     - SocketIO.SocketIOComponent
     - TypeofDocking
+    - UnityMainThreadDispatcher
     - angleScript
     - boatAshore
     - boatMovement
@@ -146,6 +147,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 2868}
     - Class: 114
       Script: {instanceID: 3008}
+    - Class: 114
+      Script: {instanceID: 3078}
     - Class: 114
       Script: {instanceID: 3248}
     - Class: 114
@@ -1150,4 +1153,4 @@ ScriptsOnlyBuild:
   platform: 5
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/Martin/Desktop/openocean/boatSimulation2D.exe
+  playerPath: C:/Users/Martin/Desktop/oceanImageTask3/boatSimulation2D.exe

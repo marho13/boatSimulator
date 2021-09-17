@@ -154,6 +154,7 @@ GameObject:
   - component: {fileID: 26343220}
   - component: {fileID: 26343221}
   - component: {fileID: 26343222}
+  - component: {fileID: 26343223}
   m_Layer: 0
   m_Name: Sun
   m_TagString: Untagged
@@ -266,6 +267,18 @@ MonoBehaviour:
   reward: 0
   prevRew: 0
   resetPosition: {x: 111.38, y: 97.5, z: 0}
+--- !u!114 &26343223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26343219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058eda0291ab0494aa923ffc132c6dd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &44318300
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,7 +565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 961346d7e16a445ff93777573e78efd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: ws://127.0.0.1:4568/socket.io/?EIO=4&transport=websocket
+  url: ws://127.0.0.1:4567/socket.io/?EIO=4&transport=websocket
   autoConnect: 1
   reconnectDelay: 5
   ackExpirationTime: 1800

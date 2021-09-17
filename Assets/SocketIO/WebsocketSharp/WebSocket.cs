@@ -1264,7 +1264,7 @@ namespace WebSocketSharp
     private void setClientStream ()
     {
       var host = _uri.DnsSafeHost;
-      var port = 4568;//_uri.Port; //4567 port is used so far right?
+      var port = 4567;//_uri.Port; //4567 port is used so far right?
 
       _tcpClient = new TcpClient (host, port);
       _stream = WebSocketStream.CreateClientStream (
