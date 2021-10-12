@@ -261,7 +261,7 @@ MonoBehaviour:
   taskDone: 0
   resetEnv: 0
   taskComplete: 0
-  typeNumber: 2
+  typeNumber: 1
   straightCheckpoint: 0
   nonStraightCheckpoint: 0
   reward: 0
@@ -1365,6 +1365,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1990147816586302673, guid: 76f759ba0fac0f049ac434b3c3071051,
+        type: 3}
+      propertyPath: m_TargetTexture
+      value: 
+      objectReference: {fileID: 8400000, guid: 85e46da4569366e48a468099e508b09e, type: 2}
     - target: {fileID: 1990147817103176026, guid: 76f759ba0fac0f049ac434b3c3071051,
         type: 3}
       propertyPath: m_Name

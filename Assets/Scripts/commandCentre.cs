@@ -69,7 +69,6 @@ public class commandCentre : MonoBehaviour
         taskZero(taskComplete);
         if (taskComplete) 
         {
-            Debug.Log("Task completed");
             taskCompletion(); //Completed the task, and so get 1000 reward
             resetEnv = true;
         }
@@ -106,11 +105,10 @@ public class commandCentre : MonoBehaviour
     {
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            Debug.Log("Attempting to Send...");
             // send only if it's not being manually driven
             Dictionary<string, string> data = new Dictionary<string, string>();
             data["image"] = Convert.ToBase64String(CameraHelper.CaptureFrame(FrontFacingCamera));
-            //data["state"] = string.Join(",", state);
+            data["state"] = string.Join(",", state);
 
     
             data["reward"] = reward.ToString();
@@ -118,13 +116,12 @@ public class commandCentre : MonoBehaviour
             data["checkpointNonStraight"] = nonStraightCheckpoint.ToString();
             data["onRoad"] = onRoad.ToString();
             data["resetEnv"] = resetEnv.ToString();
-            Debug.Log("Telemetry");
             _socket.Emit("telemetry", new JSONObject(data));
 
             if (resetEnv)
             {
+                Debug.Log("Resetting vehicle");
                 resetEnv = false;
-                Debug.Log("reset");
                 reward = 0.0f;
                 resetEnv = false;
             }
@@ -190,7 +187,6 @@ public class commandCentre : MonoBehaviour
     {
         if (typeNumber == 1)
         {
-            Debug.Log("Task 1");
             bool towards = td.travellingTowardsDock(boaty.boaty.transform.position, ds.getCurrentDock(), output);
             if (towards)
             {
@@ -207,7 +203,6 @@ public class commandCentre : MonoBehaviour
 
         else
         {
-            Debug.Log("Stepping");
             boaty.step(output);
         }
     }

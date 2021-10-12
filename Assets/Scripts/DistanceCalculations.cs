@@ -29,10 +29,8 @@ public class DistanceCalculations : MonoBehaviour
     public bool taskComplete(Vector3 boat) 
     {
         float distance = Vector3.Distance(boat, checkpoints[currentCheck].transform.position);
-        Debug.Log(distance);
         if (distance < 2.0f)
         {
-            Debug.Log("Got to the dock");
             if (currentCheck == checkpoints.Count-1) 
             {
                 currentCheck = 0;
