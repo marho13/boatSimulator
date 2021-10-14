@@ -17,8 +17,8 @@ public class keyPresses : MonoBehaviour
     {
         Physics.gravity = new Vector3(0.0f, 0.0f, 9.8f);
     }
-    //void FixedUpdate()
-    //{
+    void FixedUpdate()
+    {
         
         //if (Input.GetKeyDown(KeyCode.W)) {
         //    bm.moveForward();
@@ -48,10 +48,10 @@ public class keyPresses : MonoBehaviour
         //{
         //    bm.moveDirectlyRight();
         //}
-        //Vector2 distance = setArrows();
+        Vector2 distance = setArrows();
         //bm.printInfo(distance);
         //ds.taskComplete(bm.boaty.transform.position);
-    //}
+    }
 
     Vector2 setArrows()
     {
