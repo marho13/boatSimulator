@@ -13,7 +13,7 @@ When the boat arrives at a dock, it receives a very high reward, this can be sca
 
 As the simulator is made in Unity, it includes graphics which take up a lot of space, and so to store the simulator it uses git lfs.
 
-For the controls related to the simulation as well as the one related to the FFI simulator, you can go to: https://github.com/marho13/Boat-steering
+For the controls related to the simulation as well as the one related to the FFI simulator, you can go to: https://github.com/marho13/SteeringDockingPaper
 Both this repository and that one are private repositories if you want to give someone else access tell me and i can add them.
 Though this way no one that is not supposed to know about these systems will be able to access them.
 
