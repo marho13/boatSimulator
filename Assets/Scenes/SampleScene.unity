@@ -261,7 +261,7 @@ MonoBehaviour:
   taskDone: 0
   resetEnv: 0
   taskComplete: 0
-  typeNumber: 1
+  typeNumber: 0
   straightCheckpoint: 0
   nonStraightCheckpoint: 0
   reward: 0

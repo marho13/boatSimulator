@@ -1153,4 +1153,4 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/Martin/Desktop/oceanImageTask2/boatSimulation2D.exe
+  playerPath: C:/Users/Martin/Desktop/gymEnvironments/boatSimulation2D.exe
