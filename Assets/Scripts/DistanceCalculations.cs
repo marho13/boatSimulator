@@ -26,6 +26,11 @@ public class DistanceCalculations : MonoBehaviour
         return checkpoints[currentCheck];
     }
 
+    public float speedToDock(Rigidbody boat)
+    {
+        return -(boat.velocity.x*boat.velocity.y) * 0.2f;
+    }
+
     public bool taskComplete(Vector3 boat) 
     {
         float distance = Vector3.Distance(boat, checkpoints[currentCheck].transform.position);

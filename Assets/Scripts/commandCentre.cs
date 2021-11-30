@@ -13,6 +13,7 @@ public class commandCentre : MonoBehaviour
     public Camera FrontFacingCamera;
     public boatMovement boaty;
     public lineWrite lw;
+    public collisionSpeed cs;
     private SocketIOComponent _socket;
 
     public List<float> state = new List<float>();
@@ -48,6 +49,9 @@ public class commandCentre : MonoBehaviour
 
     void OnSteer(SocketIOEvent obj)
     {
+
+        /// TODO: Find out if the boat is close, and calculate its speed
+        /// If the boat is close to the docks, give it a penalty for moving too fast
         JSONObject jsonObject = obj.data;
         reward = 0.0f;
         taskComplete = ds.taskComplete(boaty.boaty.transform.position);
@@ -79,6 +83,8 @@ public class commandCentre : MonoBehaviour
         {
             episodeReward();
         }
+
+        reward += cs.getReward();
 
         EmitTelemetry(obj);
     }

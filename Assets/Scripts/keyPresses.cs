@@ -10,6 +10,7 @@ public class keyPresses : MonoBehaviour
     public offTheMap otm;
     public TypeofDocking td;
     public lineWrite lw;
+    public collisionSpeed cs;
     [SerializeField] Vector2 softMax;
     [SerializeField] Vector3 pos2;
     // Update is called once per frame
@@ -20,34 +21,34 @@ public class keyPresses : MonoBehaviour
     void FixedUpdate()
     {
         
-        //if (Input.GetKeyDown(KeyCode.W)) {
-        //    bm.moveForward();
-        //}
+        if (Input.GetKeyDown(KeyCode.W)) {
+            bm.moveForward();
+        }
 
-        //if (Input.GetKeyDown(KeyCode.A))
-        //{
-        //    bm.moveLeft();
-        //}
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            bm.moveLeft();
+        }
 
-        //if (Input.GetKeyDown(KeyCode.S))
-        //{
-         //   bm.moveDown();
-        //}
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+           bm.moveDown();
+        }
 
-        //if (Input.GetKeyDown(KeyCode.D))
-        //{
-         //   bm.moveRight();
-        //}
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+           bm.moveRight();
+        }
 
-        //if (Input.GetKeyDown(KeyCode.Q))
-        //{
-        //    bm.moveDirectlyLeft();
-        //}
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            bm.moveDirectlyLeft();
+        }
 
-        //if (Input.GetKeyDown(KeyCode.E))
-        //{
-        //    bm.moveDirectlyRight();
-        //}
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            bm.moveDirectlyRight();
+        }
         Vector2 distance = setArrows();
         //bm.printInfo(distance);
         //ds.taskComplete(bm.boaty.transform.position);
