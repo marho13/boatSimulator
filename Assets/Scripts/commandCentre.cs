@@ -85,6 +85,7 @@ public class commandCentre : MonoBehaviour
         }
 
         reward += cs.getReward();
+        cs.resetRewards();
 
         EmitTelemetry(obj);
     }

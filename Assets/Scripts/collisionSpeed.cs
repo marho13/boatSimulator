@@ -37,4 +37,9 @@ public class collisionSpeed : MonoBehaviour
     {
         reward = x + y;
     }
+
+    public void resetRewards() 
+    {
+        reward = 0.0f;
+    }
 }
