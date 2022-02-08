@@ -5,6 +5,7 @@ using UnityEngine;
 public class collisionSpeed : MonoBehaviour
 {  
     float reward = 0.0f;
+
     //Detect collisions between the GameObjects with Colliders attached
     void OnCollisionEnter(Collision collision)
     {

@@ -109,6 +109,7 @@
     <Compile Include="Assets\SocketIO\WebsocketSharp\Net\HttpListenerPrefixCollection.cs" />
     <Compile Include="Assets\SocketIO\Scripts\SocketIO\SocketIOEvent.cs" />
     <Compile Include="Assets\Scripts\boatMovement.cs" />
+    <Compile Include="Assets\Scripts\collisionSpeed.cs" />
     <Compile Include="Assets\Scripts\offTheMap.cs" />
     <Compile Include="Assets\SocketIO\WebsocketSharp\ErrorEventArgs.cs" />
     <Compile Include="Assets\SocketIO\WebsocketSharp\AssemblyInfo.cs" />
@@ -149,7 +150,6 @@
     <Compile Include="Assets\SocketIO\WebsocketSharp\Net\Chunk.cs" />
     <Compile Include="Assets\SocketIO\WebsocketSharp\Net\InputChunkState.cs" />
     <Compile Include="Assets\SocketIO\WebsocketSharp\LogLevel.cs" />
-    <Compile Include="Assets\Scripts\collisionSpeed.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\SocketIO\JSONObject\readme.txt" />

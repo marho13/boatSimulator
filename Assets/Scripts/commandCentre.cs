@@ -21,6 +21,7 @@ public class commandCentre : MonoBehaviour
     public bool taskDone = false;
     public bool resetEnv = false;
     public bool taskComplete = false;
+    public bool stucked = false;
     public int typeNumber = 0;
     public int straightCheckpoint = 0;
     public int nonStraightCheckpoint = 0;
@@ -31,15 +32,21 @@ public class commandCentre : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Debug.Log("Started");
         _socket = GameObject.Find("SocketIO").GetComponent<SocketIOComponent>();
         _socket.On("open", OnOpen);
         _socket.On("steer", OnSteer);
-        //_socket.On("manual", onManual);
         _socket.On("ready", OnReady);
-        taskZero(true);
-        prevRew = ds.calcDistances(boaty.boat.transform.position);
+        _socket.Connect();
+        //Vector2 newPos = td.spawnBoat(boaty.boaty, ds.getDockObject());
+        //taskZero(true);
+        //prevRew = ds.calcDistances(boaty.boat.transform.position);
     }
 
+    private void FixedUpdate()
+    {
+        
+    }
     //These first functions (On*), perform tasks when called such as connect unity and our actor, steer and more
     void OnOpen(SocketIOEvent obj)
     {
@@ -49,13 +56,13 @@ public class commandCentre : MonoBehaviour
 
     void OnSteer(SocketIOEvent obj)
     {
-
+        Debug.Log("Steering");
         /// TODO: Find out if the boat is close, and calculate its speed
         /// If the boat is close to the docks, give it a penalty for moving too fast
         JSONObject jsonObject = obj.data;
         reward = 0.0f;
         taskComplete = ds.taskComplete(boaty.boaty.transform.position);
-
+        Debug.Log(taskComplete);
         float steering = float.Parse(jsonObject.GetField("steering_angle").str);
         float acceleration = float.Parse(jsonObject.GetField("acceleration").str);
         float bucket = float.Parse(jsonObject.GetField("bucket").str);
@@ -63,7 +70,6 @@ public class commandCentre : MonoBehaviour
         Vector2 distance = setArrows();
 
         state = boaty.printInfo(distance);
-
         Vector3 output = steeringTranslation(steering, acceleration, bucket);
 
         taskOne(output, steering, acceleration); //Checking if the boat is moving towards the goal or not
@@ -174,10 +180,15 @@ public class commandCentre : MonoBehaviour
     //Tasks 0-2 using array notation
     void taskZero(bool taskComplete)
     {
+        stucked = boaty.stuck(boaty.boaty.transform.position);
+        Debug.Log(taskComplete);
         if (typeNumber == 0 && taskComplete==true)
         {
-            td.spawnBoat(boaty.boaty, ds.getDockObject());
+            Vector2 newPos = td.spawnBoat(boaty.boaty, ds.getDockObject());
             resetPosition = boaty.boaty.transform.position;
+            boaty.boat.velocity = Vector3.zero;
+            boaty.boat.angularVelocity = Vector3.zero;
+
             resetEnv = true;
             taskComplete = false;
         }
@@ -187,6 +198,17 @@ public class commandCentre : MonoBehaviour
             {
                 taskZero(true);
             }
+        }
+
+        if (stucked) 
+        {
+            Vector2 newPos = td.spawnBoat(boaty.boaty, ds.getDockObject());
+            resetPosition = boaty.boaty.transform.position;
+            boaty.boat.velocity = Vector3.zero;
+            boaty.boat.angularVelocity = Vector3.zero;
+
+            resetEnv = true;
+            taskComplete = false;
         }
     }
 

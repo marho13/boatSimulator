@@ -56,10 +56,10 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Library\PackageCache\com.unity.toolchain.win-x86_64-linux-x86_64@0.1.20-preview\Editor\Unity.Toolchain.cs" />
+    <Compile Include="Library\PackageCache\com.unity.toolchain.win-x86_64-linux-x86_64@1.0.0\Editor\Unity.Toolchain.cs" />
   </ItemGroup>
   <ItemGroup>
-     <None Include="Library\PackageCache\com.unity.toolchain.win-x86_64-linux-x86_64@0.1.20-preview\Editor\Unity.Toolchain.Win-x86_64-Linux-x86_64.asmdef" />
+     <None Include="Library\PackageCache\com.unity.toolchain.win-x86_64-linux-x86_64@1.0.0\Editor\Unity.Toolchain.Win-x86_64-Linux-x86_64.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.9f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

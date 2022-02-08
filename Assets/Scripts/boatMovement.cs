@@ -7,6 +7,7 @@ public class boatMovement : MonoBehaviour
     public Rigidbody boat;
     public boatAshore ba;
     public Vector3 lastAction;
+    public List<Vector3> stuckCheck;
     [SerializeField] GameObject backBoat;
     [SerializeField] GameObject backLeft;
     [SerializeField] GameObject backRight;
@@ -100,6 +101,20 @@ public class boatMovement : MonoBehaviour
     public void step(Vector3 output) {
         boat.AddForceAtPosition(output, backBoat.transform.position);
         lastAction = output;
+    }
+
+    public bool stuck(Vector3 position)
+    {
+        if (stuckCheck.Count > 500)
+        {
+            stuckCheck.RemoveAt(0);
+            if (Vector3.Distance(stuckCheck[0], position) < 1.0f) {
+                stuckCheck.Add(position);
+                return true;
+            }
+        }
+        stuckCheck.Add(position);
+        return false;
     }
 
     public Vector3 rotationToOffset(float multiplier, string straight) 

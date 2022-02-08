@@ -541,6 +541,7 @@ MonoBehaviour:
   FrontFacingCamera: {fileID: 1589530931}
   boaty: {fileID: 212543944}
   lw: {fileID: 212543941}
+  cs: {fileID: 0}
   state: []
   onRoad: 1
   taskDone: 0
@@ -866,6 +867,7 @@ MonoBehaviour:
   otm: {fileID: 1385500408}
   td: {fileID: 1385500407}
   lw: {fileID: 212543941}
+  cs: {fileID: 0}
   softMax: {x: 0, y: 0}
   pos2: {x: 0, y: 0, z: 0}
 --- !u!156049354 &1385500410

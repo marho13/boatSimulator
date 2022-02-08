@@ -120,6 +120,8 @@ public class TypeofDocking : MonoBehaviour
 
     public Vector2 spawnBoat(GameObject boat, GameObject dock)
     {
+        Debug.Log(boat.transform.position);
+        Debug.Log(dock.name);
         //Take the angle of the dock, add 180 to it (it is rotated that way)
         float angle = dock.transform.eulerAngles.z;
         angle += 180.0f;
@@ -134,10 +136,12 @@ public class TypeofDocking : MonoBehaviour
         float finiteAngle = Random.Range(minAngle, maxAngle);
         //Translate the angle to positions
         Vector2 positionXY = positions(finiteAngle);
+        Debug.Log(positionXY);
         //Scale those positions with the length
         float x = positionXY.x * length;
         float y = positionXY.y * length;
         //Return the X and Y positions for the boat to spawn in
+        Debug.Log(x.ToString() + " " +  y.ToString());
         boat.transform.position = new Vector3(x + dock.transform.position.x, y + dock.transform.position.y, 0.0f);
         return boat.transform.position;
     }

@@ -56,12 +56,12 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Library\PackageCache\com.unity.sysroot@0.1.19-preview\Editor\NiceIO.cs" />
-    <Compile Include="Library\PackageCache\com.unity.sysroot@0.1.19-preview\Editor\AssemblyInfo.cs" />
-    <Compile Include="Library\PackageCache\com.unity.sysroot@0.1.19-preview\Editor\Unity.SysrootPackage.cs" />
+    <Compile Include="Library\PackageCache\com.unity.sysroot@1.0.0\Editor\NiceIO.cs" />
+    <Compile Include="Library\PackageCache\com.unity.sysroot@1.0.0\Editor\AssemblyInfo.cs" />
+    <Compile Include="Library\PackageCache\com.unity.sysroot@1.0.0\Editor\Unity.SysrootPackage.cs" />
   </ItemGroup>
   <ItemGroup>
-     <None Include="Library\PackageCache\com.unity.sysroot@0.1.19-preview\Editor\Unity.SysrootPackage.Editor.asmdef" />
+     <None Include="Library\PackageCache\com.unity.sysroot@1.0.0\Editor\Unity.SysrootPackage.Editor.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.9f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
