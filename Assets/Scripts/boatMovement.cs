@@ -122,16 +122,16 @@ public class boatMovement : MonoBehaviour
         float angle = Mathf.Deg2Rad*backBoat.transform.eulerAngles.z;
         if (straight == "straight")
         {
-            float x = (float)(Mathf.Cos(angle) * 10.0f) * multiplier;
-            float y = (float)(Mathf.Sin(angle) * 10.0f) * multiplier;
+            float x = (float)(Mathf.Cos(angle)) * multiplier;
+            float y = (float)(Mathf.Sin(angle)) * multiplier;
 
             return new Vector3(-y, x, 0);
         }
 
         else 
         {
-            float x = (float)(Mathf.Cos(angle) * 2.50f) * multiplier;
-            float y = (float)(Mathf.Sin(angle) * 2.50f) * multiplier;
+            float x = (float)(Mathf.Cos(angle)) * multiplier;
+            float y = (float)(Mathf.Sin(angle)) * multiplier;
 
             return new Vector3(x, y, 0);
         }

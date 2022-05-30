@@ -143,6 +143,11 @@ public class TypeofDocking : MonoBehaviour
         //Return the X and Y positions for the boat to spawn in
         Debug.Log(x.ToString() + " " +  y.ToString());
         boat.transform.position = new Vector3(x + dock.transform.position.x, y + dock.transform.position.y, 0.0f);
+
+        //Changes the boats rotation, to point it towards the dock
+        float hyp = Mathf.Sqrt(Mathf.Pow(x - dock.transform.position.x, 2) + Mathf.Pow(y - dock.transform.position.y, 2));
+        float Eulerangle = Mathf.Rad2Deg * (0-Mathf.Sin((y - dock.transform.position.y) / hyp));
+        boat.transform.eulerAngles = new Vector3(0.0f, 0.0f, Eulerangle);
         return boat.transform.position;
     }
 
