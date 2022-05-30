@@ -14,6 +14,7 @@ Gym-Unity code: https://github.com/marho13/gym-unity-interface
 
 ML Agents requires Unity, and to install the ml agents package, after which you add a file called boatAgent.yaml in the config folder of mlagents
 Example file: 
+
 behaviors:
   boatAgent:
     trainer_type: ppo
