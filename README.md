@@ -10,4 +10,33 @@ As the simulator is made in Unity, it includes graphics which take up a lot of s
 
 For controlling it you can either use ml agents, or install the gym-unity package and use a gym interface to control the vehicle.
 
-Example code to be appended!
+Gym-Unity code: https://github.com/marho13/gym-unity-interface
+
+ML Agents requires Unity, and to install the ml agents package, after which you add a file called boatAgent.yaml in the config folder of mlagents
+Example file: 
+behaviors:
+  boatAgent:
+    trainer_type: ppo
+    hyperparameters:
+      batch_size: 64
+      buffer_size: 100
+      learning_rate: 3.0e-3
+      beta: 5.0e-4
+      epsilon: 0.2
+      lambd: 0.99
+      num_epoch: 4
+      learning_rate_schedule: linear
+      beta_schedule: constant
+      epsilon_schedule: linear
+    network_settings:
+      normalize: false
+      hidden_units: 128
+      num_layers: 2
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+    max_steps: 500000
+    time_horizon: 64
+    summary_freq: 10000
+    threaded: True
