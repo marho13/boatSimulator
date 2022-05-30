@@ -41,3 +41,6 @@ behaviors:
     time_horizon: 64
     summary_freq: 10000
     threaded: True
+    
+Linux build files: https://github.com/marho13/BoatSimulatorBuild
+To run using gym-unity refer to the .x86_64 file
